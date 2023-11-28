@@ -28,6 +28,7 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          cat ./README.md
       
       - name: Test secret
         run: |
