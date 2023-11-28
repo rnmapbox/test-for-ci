@@ -38,5 +38,6 @@ jobs:
       - name: Test secret
         run: |
           echo "Test secret => ${TEST_SECRET}"
+          if [[ $FOO == "42" ]]; then ; echo "secret is good" ; fi
         env:
           TEST_SECRET: ${{ secrets.TEST_SECRET }}
