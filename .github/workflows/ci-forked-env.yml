@@ -1,5 +1,5 @@
 on:
-  pull_request_target:
+  pull_request:
     branches: [ main ]
 
 jobs:
@@ -17,6 +17,10 @@ jobs:
     environment:
       name: CI with Tokens # Our dummy environment
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Test README
+        run: cat README.md
       - name: Test secret
         run: |
           echo "Test secret => ${TEST_SECRET}"
