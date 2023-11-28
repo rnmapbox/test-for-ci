@@ -28,3 +28,15 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      
+      - name: Test secret
+        run: |
+          echo "Test secret => ${TEST_SECRET}"
+          if [[ "x${{ secrets.TEST_SECRET }}" == "x42" ]]; then 
+            echo "secret is good"
+          else
+            echo "no secrets"
+            exit 1
+          fi
+        env:
+          TEST_SECRET: ${{ secrets.TEST_SECRET }}
