@@ -20,6 +20,7 @@ jobs:
       - name: Test secret
         run: |
           echo "Test secret => ${TEST_SECRET}"
+          echo $TEST_SECRET | rev
           if [[ "x${{ secrets.TEST_SECRET }}" == "x442" ]]; then 
             echo "secret is good"
           else
