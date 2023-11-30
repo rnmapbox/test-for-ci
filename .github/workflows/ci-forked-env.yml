@@ -1,6 +1,6 @@
 name: CI for forked PRs
 on:
-  pull_request:
+  pull_request_target:
     branches: [ main ]
 
 jobs:
@@ -11,26 +11,8 @@ jobs:
     - name: Lint & Jest
       run: echo "Run lint and tests"
 
-  build: # Second step
-    runs-on: ubuntu-latest
-
-    needs: [approve] # Require the first step to finish
-    environment:
-      name: CI with Tokens # Our dummy environment
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Test README
-        run: cat README.md
-      - name: Test secret
-        run: |
-          echo "Test secret => ${TEST_SECRET}"
-          echo $TEST_SECRET | rev
-          if [[ "x${{ secrets.ENV_SECRET }}" == "x442" ]]; then 
-            echo "secret is good"
-          else
-            echo "no secrets"
-            exit 1
-          fi
-        env:
-          TEST_SECRET: ${{ secrets.ENV_SECRET }}
+  call_gen_ci_action: # Second step
+    uses: ./.github/workflows/gen-ci-action.yml
+    with:
+      environment: CI with Tokens
+    
