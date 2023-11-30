@@ -4,15 +4,8 @@ on:
     branches: [ main ]
 
 jobs:
-  approve: # First step
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Lint & Jest
-      run: echo "Run lint and tests"
-
-  call_gen_ci_action: # Second step
-    uses: ./.github/workflows/gen-ci-action.yml
+  call_ci_requiring_tokens:
+    uses: ./.github/workflows/ci-requiring-tokens.yml
     with:
       env_name: CI with Tokens
       ref: ${{ github.event.pull_request.head.sha }}
