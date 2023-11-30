@@ -1,0 +1,34 @@
+name: Reuseable CI action
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        default: default
+        required: false
+        type: string
+
+jobs:
+  build:
+    name: "Run CI test"
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Test README
+        run: cat README.md
+      - name: Test secret
+        run: |
+          echo "Test secret => ${TEST_SECRET}"
+          echo $TEST_SECRET | rev
+          if [[ "x${{ secrets.ENV_SECRET }}" == "x442" ]]; then 
+            echo "secret is good"
+          else
+            echo "no secrets"
+            exit 1
+          fi
+        env:
+          TEST_SECRET: ${{ secrets.ENV_SECRET }}
+        
