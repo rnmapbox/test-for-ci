@@ -9,5 +9,6 @@ jobs:
     with:
       env_name: CI with Tokens
       ref: ${{ github.event.pull_request.head.sha }}
-    secrets: inherit
+    secrets:
+      ENV_MAPBOX_DOWNLOAD_TOKEN: ${{ secrets.ENV_MAPBOX_DOWNLOAD_TOKEN }}
     
