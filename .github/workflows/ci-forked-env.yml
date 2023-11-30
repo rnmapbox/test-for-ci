@@ -14,6 +14,6 @@ jobs:
   call_gen_ci_action: # Second step
     uses: ./.github/workflows/gen-ci-action.yml
     with:
-      environment: CI with Tokens
+      env_name: CI with Tokens
       ref: ${{ github.event.pull_request.head.sha }}
     
