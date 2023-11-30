@@ -1,0 +1,44 @@
+name: Android Build
+
+on:
+  workflow_call:
+    inputs:
+      env_name:
+        required: true
+        default: default
+        type: string
+      ref:
+        required: false
+        type: string 
+    secrets:
+      MAPBOX_ACCESS_TOKEN:
+        required: true
+      MAPBOX_DOWNLOAD_TOKEN:
+        required: true
+
+jobs:
+  build_example:
+    name: Android Example Build
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.env_name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        if: ${{ inputs.ref == "" }}
+      
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        if: ${{ inputs.ref != "" }}
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Test README.md
+        run: cat README.md
+
+      - run: |
+          echo "Download token:"
+          echo $MAPBOX_DOWNLOAD_TOKEN | rev
+        working-directory: example
+        env:
+          MAPBOX_DOWNLOAD_TOKEN: ${{ secrets.MAPBOX_DOWNLOAD_TOKEN || secrets.ENV_MAPBOX_DOWNLOAD_TOKEN }}
+        
