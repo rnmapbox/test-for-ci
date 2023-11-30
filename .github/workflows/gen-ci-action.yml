@@ -3,7 +3,7 @@ name: Reuseable CI action
 on:
   workflow_call:
     inputs:
-      environment:
+      env_name:
         default: default
         required: false
         type: string
@@ -15,7 +15,7 @@ jobs:
   build:
     name: "Run CI test"
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment: ${{ inputs.env_name }}
     
     steps:
       - name: Checkout
@@ -26,6 +26,9 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
         if: ${{ inputs.ref != '' }}
+      - name: Test environent:
+        run:
+          echo "ENV name: ${{ inputs.env_name }}"
       - name: Test README
         run: cat README.md
       - name: Test secret
