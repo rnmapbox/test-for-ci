@@ -35,6 +35,18 @@ jobs:
       - name: Test README.md
         run: cat README.md
 
+      - name: Show Envs
+        run: |
+          echo "hello"
+          echo "env= ${ENV_ENV}"
+          export
+          echo "X:${MAPBOX_DOWNLOAD_TOKEN}:X" | rev
+          echo "X:${ENV_MAPBOX_DOWNLOAD_TOKEN}:X" | rev
+        env:
+          ENV_ENV: ${{ vars.ENV_ENV }}
+          MAPBOX_DOWNLOAD_TOKEN: ${{ secrets.MAPBOX_DOWNLOAD_TOKEN }}
+          ENV_MAPBOX_DOWNLOAD_TOKEN: ${{ secrets.ENV_MAPBOX_DOWNLOAD_TOKEN }}
+
       - run: |
           echo "Download token:"
           echo "X:${MAPBOX_DOWNLOAD_TOKEN}:X" | rev
