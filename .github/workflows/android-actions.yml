@@ -24,11 +24,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        if: ${{ inputs.ref == "" }}
+        if: ${{ inputs.ref == '' }}
       
       - name: Checkout fork
         uses: actions/checkout@v4
-        if: ${{ inputs.ref != "" }}
+        if: ${{ inputs.ref != '' }}
         with:
           ref: ${{ inputs.ref }}
 
