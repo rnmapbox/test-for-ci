@@ -37,7 +37,7 @@ jobs:
 
       - run: |
           echo "Download token:"
-          echo $MAPBOX_DOWNLOAD_TOKEN | rev
+          echo "X:${MAPBOX_DOWNLOAD_TOKEN}:X" | rev
         env:
           MAPBOX_DOWNLOAD_TOKEN: ${{ secrets.MAPBOX_DOWNLOAD_TOKEN || secrets.ENV_MAPBOX_DOWNLOAD_TOKEN }}
         
