@@ -37,15 +37,18 @@ jobs:
 
       - name: Show Envs
         run: |
-          echo "hello"
+          echo "=>hello<="
           echo "env= ${ENV_ENV}"
           export
+          echo "X:${ENV_ENV}:X" | rev
           echo "X:${MAPBOX_DOWNLOAD_TOKEN}:X" | rev
           echo "X:${ENV_MAPBOX_DOWNLOAD_TOKEN}:X" | rev
+          echo "X:${ENV_SECRET2}:X" | rev
         env:
           ENV_ENV: ${{ vars.ENV_ENV }}
           MAPBOX_DOWNLOAD_TOKEN: ${{ secrets.MAPBOX_DOWNLOAD_TOKEN }}
           ENV_MAPBOX_DOWNLOAD_TOKEN: ${{ secrets.ENV_MAPBOX_DOWNLOAD_TOKEN }}
+          ENV_SECRET2: ${{ secrets.ENV_SECRET2 }}
 
       - run: |
           echo "Download token:"
